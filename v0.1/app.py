@@ -166,7 +166,8 @@ def home_page():
         <div style="color: var(--accent2); font-weight: bold;">Created By</div> 
         <div style="margin: 15px 0;"> 
             Ramez Ezzat • Mariam Sobhy<br> 
-            Ahmed Hazem • Noureen 
+            Ahmed Hazem • Noureen Muhammed <br>
+            Rokaia Islam • Aya Mamdouh
         </div> 
     </div> 
     """, unsafe_allow_html=True) 
