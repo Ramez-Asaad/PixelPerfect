@@ -5,5 +5,3 @@ opencv-python>=4.5.5
 rembg>=2.0.30
 matplotlib>=3.5.0
 onnxruntime>=1.10.0
-onnxruntime
-os
