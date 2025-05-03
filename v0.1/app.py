@@ -21,7 +21,7 @@ if 'image_bytes' not in st.session_state:
 if "current_page" not in st.session_state:
     st.session_state.current_page = "home"
 
-def get_logo(logo_path="Image-Enhancement-Toolkit\\static\\ggg.jpg", size=(110, 110)): 
+def get_logo(logo_path="static\\ggg.jpg", size=(110, 110)): 
     if os.path.exists(logo_path): 
         img = Image.open(logo_path) 
         img = img.resize(size, Image.LANCZOS) 
