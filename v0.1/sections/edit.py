@@ -5,12 +5,14 @@ from PIL import Image
 import io
 from utils.image_processing import process_image
 from utils.utils import pil_to_bytes, bytes_to_pil
+from sections.crop import crop_page
+from sections.remove_bg import remove_bg_page
 
 def edit_page():
     st.title("🖼️ Image Editor")
 
     # Add a "Clear Image" button to reset the uploaded image
-    if st.button("🗑️ Clear Image"):
+    if st.button("🗑️ Clear Image", key='clear-edit'):
         st.session_state.image_bytes = None
         st.session_state.refresh = True
 
@@ -27,14 +29,25 @@ def edit_page():
     col1, col2, col3 = st.columns(3)
     with col1:
         if st.button("✂️ Go to Cropping"):
-            st.switch_page("pages/crop.py")
+            st.session_state.current_page = "crop"
     with col2:
         if st.button("🧹 Remove Background"):
-            st.switch_page("pages/remove_bg.py")
+            st.session_state.current_page = "remove_bg"
     with col3:
         if st.button("🔄 Reset Edits"):
             st.session_state.image_bytes = pil_to_bytes(image)
             st.experimental_set_query_params(refresh="true")
+            
+    if st.session_state.current_page == "crop":
+        with st.spinner("Loading cropping page..."):
+            crop_page()
+            st.success("Page loaded!")
+            st.stop()
+    elif st.session_state.current_page == "remove_bg":
+        with st.spinner("loading background removal page..."):
+            remove_bg_page()
+            st.stop()
+    
 
     # File uploader at the top
     if st.session_state.image_bytes is not None:
@@ -130,7 +143,7 @@ def edit_page():
         "Piecewise": "piecewise"
         }
     
-        processed_image = process_image(img_array, operation_map[operation], params)
+        
     
         # Display images side by side
         col1, col2 = st.columns(2)
@@ -140,7 +153,11 @@ def edit_page():
     
         with col2:
             st.subheader("Processed Image")
+            with st.spinner("Processing..."):
+                processed_image = process_image(img_array, operation_map[operation], params)
             st.image(processed_image)
+            st.success("Processing complete!")
+
     
         # Download button
         if isinstance(processed_image, np.ndarray):
@@ -161,3 +178,5 @@ def edit_page():
             )
     else:
         st.info("Please upload an image to begin editing.")
+        
+

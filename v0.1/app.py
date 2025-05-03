@@ -7,11 +7,26 @@ from utils.image_processing import process_image
 from sections.crop import crop_page
 from sections.remove_bg import remove_bg_page
 from sections.edit import edit_page
-
+from streamlit_lottie import st_lottie
+import requests
 import numpy as np 
 import cv2 
 import os 
 import base64 
+
+def load_lottie_url(url):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
+
+lottie_animation = load_lottie_url("https://assets10.lottiefiles.com/packages/lf20_8wREpI.json")
+
+st.set_page_config(
+    page_title="Pixel Perfect Processor",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
 # Initialize session state
 if 'image_bytes' not in st.session_state:
@@ -34,11 +49,6 @@ def get_logo(logo_path="static/ggg.jpg", size=(110, 110)):
 logo_base64 = get_logo(size=(110, 110))
 
 # Set page config
-st.set_page_config(
-    page_title="Pixel Perfect Processor",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
  
 # CSS with your color scheme 
 st.markdown(f""" 
@@ -113,6 +123,7 @@ def home_page():
             <img class="logo-img" src="data:image/png;base64,{logo_base64}"> 
         </div> 
         """, unsafe_allow_html=True) 
+        st_lottie(lottie_animation, height=100, key="success")
     else: 
         st.markdown(""" 
         <div class="logo-container"> 
@@ -188,12 +199,16 @@ st.sidebar.markdown("**Version 2.0** · [GitHub Repo](#)")
 
 # Page routing based on session state
 if st.session_state.current_page == "home":
-    home_page()
+    with st.spinner("Loading home page..."):
+        home_page()
 elif st.session_state.current_page == "edit":
-    edit_page()
+    with st.spinner("Loading edit page..."):
+        edit_page()
 elif st.session_state.current_page == "crop":
-    crop_page()
+    with st.spinner("Loading cropping page..."):    
+        crop_page()
 elif st.session_state.current_page == "remove_bg":
-    remove_bg_page()
+    with st.spinner("Loading background removal page..."):    
+        remove_bg_page()
 else:
     st.error("Page not found!")

@@ -34,8 +34,10 @@ def remove_bg_page():
 
     with col2:
         st.subheader("Preview: Background Removed")
-        transparent_preview = remove_background(image)
+        with st.spinner("Removing background..."):
+            transparent_preview = remove_background(image)
         st.image(transparent_preview)
+        st.success("Background removed!")
 
     # Add a button to confirm background removal
     if st.button("Confirm Remove Background"):
