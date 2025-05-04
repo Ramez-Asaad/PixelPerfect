@@ -52,5 +52,11 @@ def process_image(img_array, operation_type, params=None):
                     result[:, :, c] = mapped.reshape(img_array.shape[:2]).astype(np.uint8)
 
             return result
+        elif operation_type == "power_law":
+            gamma = params.get("gamma", 1.0)
+            normalized_img = img_array / 255.0
+            img_array = np.power(normalized_img, gamma)
+            img_array = (img_array * 255).astype(np.uint8)
+            return img_array
         return img_array
     
