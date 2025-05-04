@@ -20,7 +20,7 @@ def load_lottie_url(url):
         return None
     return r.json()
 
-#lottie_animation = load_lottie_url("https://assets10.lottiefiles.com/packages/lf20_8wREpI.json")
+lottie_animation = load_lottie_url("https://assets10.lottiefiles.com/packages/lf20_8wREpI.json")
 
 st.set_page_config(
     page_title="Pixel Perfect Processor",
@@ -60,7 +60,7 @@ st.markdown(f"""
     --accent2: #00CFFF; 
     --text: #FFFFFF; 
 }} 
- 
+
 .stApp {{ 
     background-color: var(--primary); 
     color: var(--text); 
@@ -108,10 +108,17 @@ h1, h2, h3 {{
     color: #FFFFF !important; 
 }}
 
-sidebar .sidebar-content {{
+.stSidebar .stButton>button:hover {{
     background-color: var(--accent1);
-    color: var(--text);
-}} 
+    color: white;
+    transform: translateX(5px);
+    box-shadow: 0 0 10px rgba(180, 76, 255, 0.5);
+}}
+
+.stSidebar .stButton>button:focus {{
+    background-color: var(--accent1);
+    color: white;
+}}
 </style> 
 """, unsafe_allow_html=True) 
 
@@ -123,7 +130,7 @@ def home_page():
             <img class="logo-img" src="data:image/png;base64,{logo_base64}"> 
         </div> 
         """, unsafe_allow_html=True) 
-        #st_lottie(lottie_animation, height=100, key="success")
+        st_lottie(lottie_animation, height=100, key="success")
     else: 
         st.markdown(""" 
         <div class="logo-container"> 
@@ -136,9 +143,9 @@ def home_page():
     <div class="description"> 
         <h2 style="text-align: center;">Welcome to <span style="color: var(--accent1)">Pixel Perfect</span> Processor</h2> 
         <p>Image enhancement transforms ordinary photos into professional-quality visuals. <p>In our digital age, images have become more than just pictures - they're powerful communication tools that shape our daily lives:</p> 
-        <p><b>💼 Professional Impact:</b> Job seekers with professional profile pictures receive 21x more profile views and 9x more connection requests.</p> 
-        <p><b>🧠 Memory & Learning:</b> People remember 80% of what they see, compared to just 20% of what they read, making visuals crucial for education.</p> 
-        <p><b>🚀 Brand Perception:</b> Consistent, high-quality visuals across platforms can increase revenue by up to 23% through improved brand recognition.</p> 
+        <p><b>- Professional Impact:</b> Job seekers with professional profile pictures receive 21x more profile views and 9x more connection requests.</p> 
+        <p><b>- Memory & Learning:</b> People remember 80% of what they see, compared to just 20% of what they read, making visuals crucial for education.</p> 
+        <p><b>- Brand Perception:</b> Consistent, high-quality visuals across platforms can increase revenue by up to 23% through improved brand recognition.</p> 
         <p>Our processor helps you create images that make an impact - whether for personal memories, professional portfolios, or business marketing.</p> 
     </div> 
     """, unsafe_allow_html=True) 
@@ -180,12 +187,15 @@ def home_page():
             Ahmed Hazem • Noureen Muhammed <br>
             Rokaia Islam • Aya Mamdouh
         </div> 
+        <div style="color: var(--accent2); font-weight: bold;">Under Supervision Of:</div>
+        <div style="margin: 15px 0;"> Dr. Mohamed Abdulrahman</div>
+        </div> 
     </div> 
     """, unsafe_allow_html=True) 
 
 # Sidebar navigation
 st.sidebar.title("Navigation")
-if st.sidebar.button("🏠 Home", key=1):
+if st.sidebar.button("🏠 Home", key=1, ):
     st.session_state.current_page = "home"
 if st.sidebar.button("🖼️ Edit Image", key=2):
     st.session_state.current_page = "edit"
