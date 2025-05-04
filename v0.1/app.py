@@ -20,7 +20,7 @@ def load_lottie_url(url):
         return None
     return r.json()
 
-lottie_animation = load_lottie_url("https://assets10.lottiefiles.com/packages/lf20_8wREpI.json")
+#lottie_animation = load_lottie_url("https://assets10.lottiefiles.com/packages/lf20_8wREpI.json")
 
 st.set_page_config(
     page_title="Pixel Perfect Processor",
@@ -123,7 +123,7 @@ def home_page():
             <img class="logo-img" src="data:image/png;base64,{logo_base64}"> 
         </div> 
         """, unsafe_allow_html=True) 
-        st_lottie(lottie_animation, height=100, key="success")
+        #st_lottie(lottie_animation, height=100, key="success")
     else: 
         st.markdown(""" 
         <div class="logo-container"> 

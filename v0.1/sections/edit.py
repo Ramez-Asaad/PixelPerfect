@@ -58,7 +58,7 @@ def edit_page():
         # Operation selection
         operation = st.selectbox(
         "Select Operation", 
-        ["Grayscale", "Blur", "Edge Detection", "Threshold", "Color Adjustment", "Log Transform", "Negative", "Piecewise", "Power Law"],
+        ["Grayscale", "Blur", "Edge Detection", "Threshold", "Color Adjustment", "Log Transform", "Negative", "Piecewise", "Power Law", "Watershed Sergmentation", "Adaptive Thresholding", "Graylevel Slicing"],
         help="Choose an operation to apply to the image",
         index=0
         )
@@ -134,6 +134,18 @@ def edit_page():
                     "Gamma", 0.1, 5.0, 1.0, 0.1,
                     help="Adjust the gamma value for power law transformation"
                 )
+            elif operation == "Graylevel Slicing": 
+                params["low_threshold"] = st.slider(
+                    "low threshold"
+                )
+                params["high_threshold"] = st.slider(
+                    "high threshold"
+                )
+            elif operation == "Watershed Segmentation":
+                params["kernal_size"] = st.slider("kernal size")
+            elif operation == "Adaptive Thresholding":
+                params["block_size"] = st.slider("block size")
+                
         # Process image
         operation_map = {
         "Grayscale": "grayscale",
@@ -144,10 +156,11 @@ def edit_page():
         "Log Transform": "log_transform",
         "Negative": "negative",
         "Piecewise": "piecewise",
-        "Power Law": "power_law"
+        "Power Law": "power_law", 
+        "Watershed Sergmentation": "watershed_segmentation",
+        "Adaptive Thresholding":"adaptive_threshold",
+        "Graylevel Slicing" : "graylevel_slicing"
         }
-    
-        
     
         # Display images side by side
         col1, col2 = st.columns(2)
