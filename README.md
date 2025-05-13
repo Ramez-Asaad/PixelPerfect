@@ -44,7 +44,7 @@ A streamlit-based web application that provides various image processing functio
 
 1. Start the Streamlit server:
    ```bash
-   streamlit run app.py
+   streamlit run v0.1/app.py
    ```
 
 2. Open your web browser and go to the displayed URL (typically http://localhost:8501)
