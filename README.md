@@ -11,13 +11,14 @@ A streamlit-based web application that provides various image processing functio
   - Edge detection with customizable thresholds
   - Binary thresholding with adjustable values
   - Brightness and contrast adjustment
+  - Background removal
 - **Download**: Processed images can be downloaded in PNG format
 
 ## Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/TheAhmedHazem/PixelPerfect.git
+   git clone https://github.com/yourusername/Image-Enhancement-Toolkit.git
    cd Image-Enhancement-Toolkit
    ```
 
