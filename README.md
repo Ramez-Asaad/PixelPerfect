@@ -12,14 +12,14 @@ A streamlit-based web application that provides various image processing functio
   - Binary thresholding with adjustable values
   - Brightness and contrast adjustment
   - Background removal
+  - Image cropping with adjustable coordinates
 - **Download**: Processed images can be downloaded in PNG format
 
 ## Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/Image-Enhancement-Toolkit.git
-   cd Image-Enhancement-Toolkit
+   git clone https://github.com/Ramez-Asaad/PixelPerfect.git
    ```
 
 2. Install dependencies using Poetry:
@@ -59,12 +59,32 @@ A streamlit-based web application that provides various image processing functio
 ## Project Structure
 
 ```
-Image-Enhancement-Toolkit/
-├── app.py          # Main application file
-├── LICENSE         # MIT License
-├── pyproject.toml  # Project configuration
-├── README.md       # Project documentation
-└── env1/           # Package directory
+PIXELPERFECT/
+├── .streamlit/
+│   └── config.toml                # Streamlit configuration file
+│
+├── static/                        # Static assets
+│   ├── ggg.jpg                    # Example/test image
+│   ├── style.css                  # Custom styling
+│   └── Transformation.ipynb      # Notebook for image transformations
+│
+├── v0.1/                          # Main application code
+│   ├── app.py                     # Streamlit app entry point
+│   ├── sections/                  # Functional modules
+│   │   ├── __init__.py
+│   │   ├── crop.py                # Image cropping functionality
+│   │   ├── edit.py                # General image editing
+│   │   └── remove_bg.py           # Background removal
+│   │
+│   └── utils/                     # Helper functions
+│       ├── image_processing.py   # Image manipulation logic
+│       └── utils.py              # Common utility functions
+│
+├── LICENSE                        # License information
+├── packages.txt                   # Optional: manually listed packages
+├── requirements.txt               # Python dependencies
+└── README.md                      # Project documentation
+
 ```
 
 ## License
