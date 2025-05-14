@@ -5,31 +5,37 @@ import streamlit as st
 def process_image(img_array, operation_type, params=None):
         if operation_type == "grayscale":
             return cv2.cvtColor(img_array, cv2.COLOR_RGB2GRAY)
+        
         elif operation_type == "blur":
             kernel_size = params.get("kernel_size", 5)
             return cv2.GaussianBlur(img_array, (kernel_size, kernel_size), 0)
+        
         elif operation_type == "edges":
             threshold1 = params.get("threshold1", 100)
             threshold2 = params.get("threshold2", 200)
             gray = cv2.cvtColor(img_array, cv2.COLOR_RGB2GRAY)
             return cv2.Canny(gray, threshold1, threshold2)
+        
         elif operation_type == "threshold":
             gray = cv2.cvtColor(img_array, cv2.COLOR_RGB2GRAY)
             thresh_value = params.get("thresh_value", 127)
             _, binary = cv2.threshold(gray, thresh_value, 255, cv2.THRESH_BINARY)
             return binary
+        
         elif operation_type == "color_adjust":
             brightness = params.get("brightness", 0)
             contrast = params.get("contrast", 1)
             return cv2.convertScaleAbs(img_array, alpha=contrast, beta=brightness)
+        
         elif operation_type == "log_transform":
-            
             c = 255 / np.log(1 + np.max(img_array))
             img_array = c * (np.log(img_array + 1))
             img_array = np.array(np.clip(img_array, 0, 255), dtype=np.uint8)
             return img_array
+        
         elif operation_type == "negative":
             return 255 - img_array
+        
         elif operation_type == "piecewise":
             # Default piecewise mapping: identity (no change)
             r_vals = np.array(params.get("r_vals", [0, 70, 150, 255]), dtype=np.uint8)
@@ -58,18 +64,21 @@ def process_image(img_array, operation_type, params=None):
             img_array = np.power(normalized_img, gamma)
             img_array = (img_array * 255).astype(np.uint8)
             return img_array
+        
         elif operation_type == "graylevel_slicing":
             """Apply gray-level slicing to an image."""
             low_threshold = params.get("low_threshold", 100)
             high_threshold = params.get("high_threshold", 200)
             img_array = np.where((img_array >= low_threshold) & (img_array <= high_threshold), 255, 0).astype(np.uint8)
             return img_array
+        
         elif operation_type == "log_transform":
             """Apply logarithmic transformation to an image."""
             c = 255 / np.log(1 + np.max(img_array))
             img_array = c * (np.log(img_array + 1))
             img_array = np.array(np.clip(img_array, 0, 255), dtype=np.uint8)
             return img_array
+        
         elif operation_type=="watershed_segmentation":
             """Apply watershed segmentation to an image."""
             # Convert to grayscale and blur
@@ -108,6 +117,7 @@ def process_image(img_array, operation_type, params=None):
             result[markers == -1] = [0, 0, 255]  # Mark boundaries in red
             
             return result
+        
         elif operation_type == "adaptive_threshold": 
             """Apply adaptive thresholding to an image."""
             block_size = params.get("block_size", 11)

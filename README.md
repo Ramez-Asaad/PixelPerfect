@@ -11,13 +11,14 @@ A streamlit-based web application that provides various image processing functio
   - Edge detection with customizable thresholds
   - Binary thresholding with adjustable values
   - Brightness and contrast adjustment
+  - Background removal
 - **Download**: Processed images can be downloaded in PNG format
 
 ## Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/Image-Enhancement-Toolkit.git
+   git clone https://github.com/TheAhmedHazem/Image-Enhancement-Toolkit.git
    cd Image-Enhancement-Toolkit
    ```
 
@@ -44,7 +45,7 @@ A streamlit-based web application that provides various image processing functio
 
 1. Start the Streamlit server:
    ```bash
-   streamlit run app.py
+   streamlit run v0.1/app.py
    ```
 
 2. Open your web browser and go to the displayed URL (typically http://localhost:8501)
