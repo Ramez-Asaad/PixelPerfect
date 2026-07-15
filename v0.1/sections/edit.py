@@ -136,15 +136,19 @@ def edit_page():
                 )
             elif operation == "Graylevel Slicing": 
                 params["low_threshold"] = st.slider(
-                    "low threshold"
+                    "low threshold", min_value=0, max_value=255, value=100
                 )
                 params["high_threshold"] = st.slider(
-                    "high threshold"
+                    "high threshold", min_value=0, max_value=255, value=200
                 )
             elif operation == "Watershed Segmentation":
-                params["kernal_size"] = st.slider("kernal size")
+                params["kernel_size"] = st.slider(
+                    "kernel size", min_value=1, max_value=31, value=5, step=2
+                )
             elif operation == "Adaptive Thresholding":
-                params["block_size"] = st.slider("block size")
+                params["block_size"] = st.slider(
+                    "block size", min_value=3, max_value=99, value=11, step=2
+                )
                 
         # Process image
         operation_map = {

@@ -7,7 +7,12 @@ def process_image(img_array, operation_type, params=None):
             return cv2.cvtColor(img_array, cv2.COLOR_RGB2GRAY)
         
         elif operation_type == "blur":
-            kernel_size = params.get("kernel_size", 5)
+            kernel_size = int(params.get("kernel_size", 5))
+            # GaussianBlur kernel must be odd and positive
+            if kernel_size < 1:
+                kernel_size = 1
+            if kernel_size % 2 == 0:
+                kernel_size += 1
             return cv2.GaussianBlur(img_array, (kernel_size, kernel_size), 0)
         
         elif operation_type == "edges":
@@ -82,7 +87,12 @@ def process_image(img_array, operation_type, params=None):
         elif operation_type=="watershed_segmentation":
             """Apply watershed segmentation to an image."""
             # Convert to grayscale and blur
-            kernel_size = params.get("kernel_size", 5)
+            kernel_size = int(params.get("kernel_size", 5))
+            # GaussianBlur kernel must be odd and positive
+            if kernel_size < 1:
+                kernel_size = 1
+            if kernel_size % 2 == 0:
+                kernel_size += 1
             gray = cv2.cvtColor(img_array, cv2.COLOR_RGB2GRAY)
             blur = cv2.GaussianBlur(gray, (kernel_size, kernel_size), 0)
             
@@ -120,7 +130,12 @@ def process_image(img_array, operation_type, params=None):
         
         elif operation_type == "adaptive_threshold": 
             """Apply adaptive thresholding to an image."""
-            block_size = params.get("block_size", 11)
+            block_size = int(params.get("block_size", 11))
+            # blockSize must be odd and > 1
+            if block_size < 3:
+                block_size = 3
+            if block_size % 2 == 0:
+                block_size += 1
             c_value = params.get("c_value", 2)
             gray = cv2.cvtColor(img_array, cv2.COLOR_RGB2GRAY)
             adaptive_thresh = cv2.adaptiveThreshold(
