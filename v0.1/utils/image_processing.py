@@ -3,6 +3,15 @@ import numpy as np
 import streamlit as st
 
 def process_image(img_array, operation_type, params=None):
+        img_array = np.asarray(img_array)
+        # Normalize to 3-channel 8-bit RGB so OpenCV ops get a consistent type.
+        # Uploaded PNGs are often RGBA (4-channel), which breaks watershed and others.
+        if img_array.ndim == 3 and img_array.shape[2] == 4:
+            img_array = cv2.cvtColor(img_array, cv2.COLOR_RGBA2RGB)
+        if img_array.dtype != np.uint8:
+            img_array = np.clip(img_array, 0, 255).astype(np.uint8)
+        img_array = np.ascontiguousarray(img_array)
+
         if operation_type == "grayscale":
             return cv2.cvtColor(img_array, cv2.COLOR_RGB2GRAY)
         
@@ -86,6 +95,9 @@ def process_image(img_array, operation_type, params=None):
         
         elif operation_type=="watershed_segmentation":
             """Apply watershed segmentation to an image."""
+            # watershed requires 3-channel (CV_8UC3); handle grayscale input
+            if img_array.ndim == 2:
+                img_array = cv2.cvtColor(img_array, cv2.COLOR_GRAY2RGB)
             # Convert to grayscale and blur
             kernel_size = int(params.get("kernel_size", 5))
             # GaussianBlur kernel must be odd and positive
